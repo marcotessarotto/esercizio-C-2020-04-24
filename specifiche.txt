@@ -10,6 +10,8 @@ il processo padre tiene aperto il file output.txt, salvare il descrittore in una
 
 il processo padre crea un processo figlio: l'obiettivo finale è che il file output.txt contenga tutta la stringa text_to_write e che i due processi (processo padre e processo figlio) si dividano il lavoro di scrittura nel file. La scrittura sul file avviene in "parallelo".
 
+il processo figlio apre per conto suo il file output.txt.
+
 il processo padre scrive la prima metà di text_to_write nel file, cominciando a scrivere dalla posizione iniziale del file.
 
 il processo figlio scrive l'altra metà di text_to_write del file, cominciando a scrivere da dove il processo padre ha terminato di scrivere.
