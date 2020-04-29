@@ -36,14 +36,7 @@ int main(){
 		case 0:
 		{
 			//child
-			// SEEK_SET: posizione offset a (text_to_write_len/2) rispetto all'inizio del file
-			off_t file_offset = lseek(fd, text_to_write_len/2 , SEEK_SET);
-			if(file_offset == -1){
-				perror("lseek()");
-				exit(EXIT_FAILURE);
-			}
-
-			int res = write(fd, text_to_write + father_string_part_length, child_string_part_length);
+			int res = pwrite(fd, text_to_write + father_string_part_length, child_string_part_length, text_to_write_len/2);
 			if(res == -1){
 				perror("write()");
 				exit(EXIT_FAILURE);
@@ -56,23 +49,14 @@ int main(){
 			}
 
 			exit(0);
-			break;
 		}
 		case -1:
 			printf("fork() ha fallito! niente processo figlio!\n");
 			exit(1);
-			break;
 		default:
 		{
 			// father
-
-			off_t file_offset = lseek(fd, 0, SEEK_SET);
-			if(file_offset == -1){
-				perror("lseek()");
-				exit(EXIT_FAILURE);
-			}
-
-			int res = write(fd, text_to_write, father_string_part_length);
+			int res = pwrite(fd, text_to_write, father_string_part_length, 0);
 			if(res == -1){
 				perror("write()");
 				exit(EXIT_FAILURE);
